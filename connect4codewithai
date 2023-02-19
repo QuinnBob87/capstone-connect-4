@@ -180,7 +180,10 @@ def minimax(board, depth, alpha, beta, maximizingPlayer):
             else:  # Game is over, no more valid moves
                 return (None, 0)
         else:  # Depth is zero
-            return (None, score_position(board, AI_PIECE))
+            if turn == AI:
+                return (None, score_position(board, AI_PIECE))
+            else:
+                return (None, score_position2(board, AI_PIECE))
     if maximizingPlayer:
         value = -math.inf
         column = random.choice(valid_locations)
@@ -306,7 +309,7 @@ while not game_over:
         col, minimax_score = minimax(board, 5, -math.inf, math.inf, True)
 
         if is_valid_location(board, col):
-            # pygame.time.wait(500)
+            pygame.time.wait(500)
             row = get_next_open_row(board, col)
             drop_piece(board, row, col, AI_PIECE)
 

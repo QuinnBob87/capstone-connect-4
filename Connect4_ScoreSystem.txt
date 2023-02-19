@@ -1,0 +1,49 @@
+(Version 1)
+
+Starting Score: 0
+
+=======================
+CONSECUTIVE PIECE BONUS
+=======================
+Check the board after every
+turn. For every instance of
+something in the list, award
+points accordingly.
+
+- AI Gets 2 in a Row
+	(Score: +5)
+- AI Gets 3 in a Row
+	(Score: +10, x1.25 for Diagonal)
+- AI Gets 4 in a Row (Win)
+	(Score: +100, x1.25 for Diagonal)
+
+========================
+OPPONENT PIECE PENALTIES
+========================
+Check the board after every
+turn. For every instance of
+something in the list, apply
+penalties accordingly.
+
+- Opponent Gets 2 in a Row
+	(Score: -1)
+- Opponent Gets 3 in a Row
+	(Score: -12)
+- Opponent Gets 4 in a Row (Loss)
+	(Score: -1000)
+
+==============
+CENTER BONUSES
+==============
+Check the board after every
+turn. For pieces in each column,
+award points accordingly.
+
+- Columns 1 & 7 (Edges)
+	(Score: +0)
+- Columns 2 & 6
+	(Score: +1)
+- Columns 3 & 5
+	(Score: +2)
+- Column 4 (Center)
+	(Score: +3)

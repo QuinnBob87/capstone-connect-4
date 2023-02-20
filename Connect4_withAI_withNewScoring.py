@@ -323,7 +323,7 @@ while not game_over:
             drop_piece(board, row, col, PLAYER_PIECE)
 
             if winning_move(board, PLAYER_PIECE):
-                label = myfont.render("Player 1 wins!!", 1, RED)
+                label = myfont.render("Basic AI wins!!", 1, RED)
                 screen.blit(label, (40, 10))
                 game_over = True
 
@@ -344,7 +344,7 @@ while not game_over:
             drop_piece(board, row, col, AI_PIECE)
 
             if winning_move(board, AI_PIECE):
-                label = myfont.render("Player 2 wins!!", 1, YELLOW)
+                label = myfont.render("Capstone AI 1.0 2 wins!!", 1, YELLOW)
                 screen.blit(label, (40, 10))
                 game_over = True
 

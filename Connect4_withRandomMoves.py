@@ -1,10 +1,9 @@
 import numpy as np
 import random
-import pygame
-import pandas as pd
+#import #pygame
 import sys
 import math
-
+import pandas as pd
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
@@ -21,6 +20,13 @@ PLAYER_PIECE = 1
 AI_PIECE = 2
 
 WINDOW_LENGTH = 4
+counter2 = 0
+game_num = 0
+game = []
+games = []
+score2 = []
+scores = []
+columns = []
 
 
 def create_board():
@@ -278,30 +284,30 @@ def pick_best_move(board, piece):
 
     return best_col
 
-
+"""
 def draw_board(board):
     for c in range(COLUMN_COUNT):
         for r in range(ROW_COUNT):
-            pygame.draw.rect(screen, BLUE, (c * SQUARESIZE, r * SQUARESIZE + SQUARESIZE, SQUARESIZE, SQUARESIZE))
-            pygame.draw.circle(screen, BLACK, (
-            int(c * SQUARESIZE + SQUARESIZE / 2), int(r * SQUARESIZE + SQUARESIZE + SQUARESIZE / 2)), RADIUS)
+            #pygame.draw.rect(screen, BLUE, (c * SQUARESIZE, r * SQUARESIZE + SQUARESIZE, SQUARESIZE, SQUARESIZE))
+            #pygame.draw.circle(screen, BLACK, (
+            #int(c * SQUARESIZE + SQUARESIZE / 2), int(r * SQUARESIZE + SQUARESIZE + SQUARESIZE / 2)), RADIUS)
 
     for c in range(COLUMN_COUNT):
         for r in range(ROW_COUNT):
             if board[r][c] == PLAYER_PIECE:
-                pygame.draw.circle(screen, RED, (
+                #pygame.draw.circle(screen, RED, (
                 int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
             elif board[r][c] == AI_PIECE:
-                pygame.draw.circle(screen, YELLOW, (
+                #pygame.draw.circle(screen, YELLOW, (
                 int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE + SQUARESIZE / 2)), RADIUS)
-    pygame.display.update()
-
+    #pygame.display.update()
+"""
 
 board = create_board()
 print_board(board)
 game_over = False
 
-pygame.init()
+#pygame.init()
 
 SQUARESIZE = 100
 
@@ -312,11 +318,11 @@ size = (width, height)
 
 RADIUS = int(SQUARESIZE / 2 - 5)
 
-screen = pygame.display.set_mode(size)
-draw_board(board)
-pygame.display.update()
+#screen = #pygame.display.set_mode(size)
+#draw_board(board)
+#pygame.display.update()
 
-myfont = pygame.font.SysFont("monospace", 75)
+#myfont = #pygame.font.SysFont("monospace", 75)
 
 turn = random.randint(PLAYER, AI)
 
@@ -336,20 +342,26 @@ while not game_over:
         # selects a random column
         col = pick_best_move(board, PLAYER_PIECE)
         row = get_next_open_row(board, col)
-        pygame.time.wait(100)
+        #pygame.time.wait(100)
         drop_piece(board, row, col, PLAYER_PIECE)
 
         if winning_move(board, PLAYER_PIECE):
-            label = myfont.render("Player 1 wins!!", 1, RED)
-            screen.blit(label, (40, 10))
+            #label = myfont.render("Player 1 wins!!", 1, RED)
+            #screen.blit(label, (40, 10))
             game_over = True
 
         turn += 1
         turn = turn % 2
 
         print_board(board)
-        draw_board(board)
-
+        #draw_board(board)
+    game.append([])
+    for x in range(6):
+        game[counter2].append([])
+        for y in range(7):
+            game[counter2][x].append(board[abs(x - 5)][y])
+    counter2 = counter2 + 1
+    score2.append(score_position(board, AI_PIECE))
     # # Ask for Player 2 Input
     if turn == AI and not game_over:
 
@@ -357,7 +369,7 @@ while not game_over:
         col, minimax_score = minimax(board, 5, -math.inf, math.inf, True)
 
         if is_valid_location(board, col):
-            pygame.time.wait(500)
+            #pygame.time.wait(500)
             row = get_next_open_row(board, col)
             drop_piece(board, row, col, AI_PIECE)
         """
@@ -365,7 +377,7 @@ while not game_over:
         # selects a random column
         col = pick_best_move(board, AI_PIECE)
         row = get_next_open_row(board, col)
-        pygame.time.wait(100)
+        #pygame.time.wait(100)
         drop_piece(board, row, col, AI_PIECE)
 
         if winning_move(board, AI_PIECE):
@@ -374,14 +386,35 @@ while not game_over:
             game_over = True
 
         print_board(board)
-        draw_board(board)
+        #draw_board(board)
 
         turn += 1
         turn = turn % 2
-
+    game.append([])
+    for x in range(6):
+        game[counter2].append([])
+        for y in range(7):
+            game[counter2][x].append(board[abs(x - 5)][y])
+    counter2 = counter2 + 1
+    score2.append(score_position(board, AI_PIECE))
     if game_over:
-        pygame.time.wait(3000)
+        ##pygame.time.wait(30000)
 
-        print()
-        print("Capstone AI Score:", score_position(board, AI_PIECE))
-        print("Basic AI Score:", score_position2(board, PLAYER_PIECE))
+        #print(score_position(board, AI_PIECE))
+        #print(score_position2(board, PLAYER_PIECE))
+        #print(game)
+        games.append(game)
+        scores.append(score2)
+for x in range(len(games)):
+    columns.append('score state | ' + str(x))
+    for y in range(6):
+        for z in range(7):
+            columns.append(str(y) + ':' + str(z) + ' | ' + str(x))
+df = pd.DataFrame(columns = columns)
+for x in range(len(games)):
+    df['score state | ' + str(game_num)] = scores[game_num]
+    for x2 in range(len(games[game_num])):
+        for y in range(6):
+            for z in range(7):
+                df.at[x2, str(y) + ':' + str(z) + ' | ' + str(x)] = games[game_num][x2][y][z]
+print(df)

@@ -291,7 +291,6 @@ def draw_board(board):
             #pygame.draw.rect(screen, BLUE, (c * SQUARESIZE, r * SQUARESIZE + SQUARESIZE, SQUARESIZE, SQUARESIZE))
             #pygame.draw.circle(screen, BLACK, (
             #int(c * SQUARESIZE + SQUARESIZE / 2), int(r * SQUARESIZE + SQUARESIZE + SQUARESIZE / 2)), RADIUS)
-
     for c in range(COLUMN_COUNT):
         for r in range(ROW_COUNT):
             if board[r][c] == PLAYER_PIECE:
@@ -326,6 +325,7 @@ RADIUS = int(SQUARESIZE / 2 - 5)
 
 turn = random.randint(PLAYER, AI)
 
+# repeat this loop
 while not game_over:
     if turn == PLAYER:
 
@@ -333,7 +333,6 @@ while not game_over:
                 # posx = event.pos[0]
                 # col = int(math.floor(posx / SQUARESIZE))
         col, minimax_score = minimax(board, 5, -math.inf, math.inf, True)
-
         if is_valid_location(board, col):
             row = get_next_open_row(board, col)
             drop_piece(board, row, col, PLAYER_PIECE)
@@ -367,7 +366,6 @@ while not game_over:
 
         """
         col, minimax_score = minimax(board, 5, -math.inf, math.inf, True)
-
         if is_valid_location(board, col):
             #pygame.time.wait(500)
             row = get_next_open_row(board, col)
@@ -381,8 +379,8 @@ while not game_over:
         drop_piece(board, row, col, AI_PIECE)
 
         if winning_move(board, AI_PIECE):
-            label = myfont.render("Player 2 wins!!", 1, YELLOW)
-            screen.blit(label, (40, 10))
+            #label = myfont.render("Player 2 wins!!", 1, YELLOW)
+            #screen.blit(label, (40, 10))
             game_over = True
 
         print_board(board)
@@ -409,12 +407,16 @@ for x in range(len(games)):
     columns.append('score state | ' + str(x))
     for y in range(6):
         for z in range(7):
+          # prints score
             columns.append(str(y) + ':' + str(z) + ' | ' + str(x))
+            #here
 df = pd.DataFrame(columns = columns)
 for x in range(len(games)):
     df['score state | ' + str(game_num)] = scores[game_num]
     for x2 in range(len(games[game_num])):
         for y in range(6):
             for z in range(7):
+                # prints games
                 df.at[x2, str(y) + ':' + str(z) + ' | ' + str(x)] = games[game_num][x2][y][z]
+                #here
 print(df)

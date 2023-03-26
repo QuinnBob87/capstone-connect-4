@@ -331,9 +331,9 @@ RADIUS = int(SQUARESIZE / 2 - 5)
 
 turn = random.randint(PLAYER, AI)
 
-NUMBER_OF_TURNS = 5
+NUMBER_OF_GAMES = 5
 
-while (game_num-1) < NUMBER_OF_TURNS:
+while (game_num-1) < NUMBER_OF_GAMES:
     print_board(board)
 
     score_p1.append(score_position(board, PLAYER_PIECE))

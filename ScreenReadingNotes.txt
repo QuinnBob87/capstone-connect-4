@@ -1,0 +1,38 @@
+Connect 4 Website: https://papergames.io/en/connect4
+
+RGB Codes:
+Background (Empty): (16, 27, 39)
+Website AI (Red): (238, 102, 119)
+Capstone AI (Green): (24, 188, 156)
+
+Pixel Positions (1920x1080 Resolution, Google Chrome, default zoom):
+0,0 (Top Left) = (640, 300)
+- Add 100 to X to move one to the right
+- Add 100 to y to move one down
+Example: 3,4 = (940, 700)
+
+Click Positions:
+Column 0 = (660, 835)
+- Add 100 to X to move one to the right
+
+===========================================
+This is the code that I was experimenting with,
+I just put it below everything else when I was testing it.
+
+
+# Import the libraries
+from PIL import Image, ImageGrab, ImageDraw
+import mouse
+
+# This just gives some time to switch tabs to the game after running the code
+pygame.time.wait(1000)
+
+# Gets the pixel color for the top left piece
+screen = ImageGrab.grab()
+rgb = screen.getpixel((640, 300))
+print("The RGB value for the pixel is: " + str(rgb))
+
+# Drops a piece in the middle column
+mouse.move(960, 835)
+pygame.time.wait(100)
+mouse.click()

@@ -14,6 +14,10 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestClassifier
 import joblib
+from random import *
+import random as rand
+
+
 
 
 BLUE = (0, 0, 255)
@@ -518,8 +522,15 @@ def pick_best_move(board, piece):
         if scores1[x] > highest:
             highest = scores1[x]
             index = x
+    tmprng = randint(1, 10)
+    if tmprng == 5:
+      scores1.remove(highest)
+      poss.remove(poss[index])
+    for x in range(len(scores1)):
+        if scores1[x] > highest:
+            highest = scores1[x]
+            index = x
     best_col = poss[index]
-    print('')
     return best_col
     """
     for col in valid_locations:
@@ -588,8 +599,8 @@ RADIUS = int(SQUARESIZE / 2 - 5)
 
 #myfont = #pygame.font.SysFont("monospace", 75)
 
-turn = random.randint(PLAYER, AI)
-
+#turn = random.randint(PLAYER, AI)
+turn = AI
 NUMBER_OF_GAMES = 1
 
 while (game_num-1) < NUMBER_OF_GAMES:

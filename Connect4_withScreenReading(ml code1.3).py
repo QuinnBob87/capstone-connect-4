@@ -535,8 +535,15 @@ def pick_best_move(board, piece):
         if scores1[x] > highest:
             highest = scores1[x]
             index = x
+    tmprng = randint(1, 10)
+    if tmprng == 5:
+      scores1.remove(highest)
+      poss.remove(poss[index])
+    for x in range(len(scores1)):
+        if scores1[x] > highest:
+            highest = scores1[x]
+            index = x
     best_col = poss[index]
-    print('')
     return best_col
 
 """
